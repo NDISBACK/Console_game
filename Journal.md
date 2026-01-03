@@ -1,3 +1,16 @@
-1-01-2026 :- i have drafted the idea of the game and collected all the needed assets and i have also initialised the git repo and the basic game structure, i have decided to make this game in godot
+---
+title: "Frame Fighter"
+author: "NamanDogra"
+description: "It is a very fun and interactive multiplayer combat game to play with your friends"
+created_at: "2026-01-01"
+---
 
-2-01-2026 :- Today i created the first level of the game and made the enemy and health mechanics of the game 
+# 01-01-2026
+Today i learnt the godot basics and made a demo game to learn the basics
+**Total time spent: 3.5h**
+
+# 02-01-2026
+Today i made the main game basics and added the character logic 
+
+**Total time spent: 4h**
+
