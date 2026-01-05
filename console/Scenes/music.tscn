@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0otaipbtks0t"]
+
+[ext_resource type="AudioStream" uid="uid://njcbphsa1a8u" path="res://Assets/scott-buckley-moonlight(chosic.com).mp3" id="1_fbmny"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_fbmny")
+autoplay = true
