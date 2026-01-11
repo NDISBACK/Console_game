@@ -15,11 +15,10 @@ func _process(delta):
 	if not player_1 or not player_2:
 		return
 
-	# Midpoint between players
+	
 	var center := (player_1.global_position + player_2.global_position) / 2
 	global_position = global_position.lerp(center, delta * 5)
 
-	# Distance-based zoom
 	var distance := player_1.global_position.distance_to(player_2.global_position)
 	var t: float = clamp(distance / max_distance, 0.0, 1.0)
 

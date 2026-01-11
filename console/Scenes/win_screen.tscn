@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://chc2keuyn4sh1"]
 
 [ext_resource type="Script" uid="uid://b6ypm076c34s2" path="res://console/Scripts/win_screen.gd" id="1_a00f1"]
-[ext_resource type="FontFile" uid="uid://dkecymy1h5g67" path="res://console/Assets/PixelOperator8.ttf" id="1_l5sol"]
+[ext_resource type="FontFile" uid="uid://tri8frs0paoy" path="res://console/Assets1/pixel_operator/PixelOperator8.ttf" id="2_ojs78"]
 
 [node name="WinScreen" type="Control"]
 layout_mode = 3
@@ -23,7 +23,7 @@ offset_top = 135.0
 offset_right = 384.6403
 offset_bottom = 155.32375
 scale = Vector2(3.83, 3.83)
-theme_override_fonts/font = ExtResource("1_l5sol")
+theme_override_fonts/font = ExtResource("2_ojs78")
 text = "Player1 Wins!!!!"
 
 [node name="Button" type="Button" parent="."]
@@ -32,7 +32,6 @@ offset_left = 402.0
 offset_top = 277.0
 offset_right = 719.0
 offset_bottom = 327.0
-theme_override_fonts/font = ExtResource("1_l5sol")
 text = "RESTART"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

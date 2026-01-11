@@ -1,7 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://c0otaipbtks0t"]
 
-[ext_resource type="AudioStream" uid="uid://njcbphsa1a8u" path="res://Assets/scott-buckley-moonlight(chosic.com).mp3" id="1_fbmny"]
+[ext_resource type="AudioStream" uid="uid://lfkxxo68r08r" path="res://console/Assets1/Music/summer nights.ogg" id="1_4k0j4"]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer"]
-stream = ExtResource("1_fbmny")
+stream = ExtResource("1_4k0j4")
+volume_db = -7.633
 autoplay = true

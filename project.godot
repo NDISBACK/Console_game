@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="consolegame"
-run/main_scene="uid://dj88ej5inbb3b"
+run/main_scene="uid://bmwa5pjafcseb"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://console/icon.svg"
 
@@ -22,7 +22,7 @@ Global="*res://console/Scripts/global.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 

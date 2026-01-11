@@ -7,6 +7,8 @@ const JUMP_VELOCITY := -300.0
 @onready var damage_zone: DamageZone = $deal_damage_zone
 @onready var hitbox: Area2D = $hitbox
 @onready var health_bar: ProgressBar = $"CanvasLayer/health bar"
+@onready var punch: AudioStreamPlayer2D = $"../punch"
+@onready var swoosh: AudioStreamPlayer2D = $"../swoosh"
 
 
 var health_max := 100
@@ -18,7 +20,7 @@ var knockback_timer
 var enemy_velocity
 var camera_shake_value = 5
 
-# INPUTS (change in Inspector for Player 2)
+
 @export var input_left := "p1_left"
 @export var input_right := "p1_right"
 @export var input_jump := "p1_jump"
@@ -26,7 +28,7 @@ var camera_shake_value = 5
 @export var input_attack2 := "p1_other"
 @export var knockback_power = 500
 
-# IMPORTANT: initial facing
+
 @export var facing_right := true
 
 
@@ -37,7 +39,7 @@ func _ready():
 	damage_zone.owner_player = self
 	damage_zone.get_node("CollisionShape2D").disabled = true
 
-	# set initial facing (VERY IMPORTANT for Player 2)
+	
 	if facing_right:
 		sprite.flip_h = false
 		damage_zone.position.x = abs(damage_zone.position.x)
@@ -53,22 +55,22 @@ func _physics_process(delta):
 	if dead:
 		return
 
-	# Gravity
+
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Jump
+
 	if Input.is_action_just_pressed(input_jump) and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Movement
+
 	var direction := Input.get_axis(input_left, input_right)
 	if direction != 0:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	# Flip + damage zone direction
+
 	if direction > 0:
 		sprite.flip_h = false
 		damage_zone.position.x = abs(damage_zone.position.x)
@@ -76,25 +78,33 @@ func _physics_process(delta):
 		sprite.flip_h = true
 		damage_zone.position.x = -abs(damage_zone.position.x)
 
-	# ---------------- ATTACK INPUT (FIXED) ----------------
+	
 	if not current_attack:
 		if Input.is_action_just_pressed(input_attack1):
 			if not is_on_floor():
 				start_attack("air")
 				camera_shake_value = 15
+				punch.pitch_scale
+				punch.play()
 			else:
 				start_attack("punch")
 				camera_shake_value = 5
+				punch.pitch_scale
+				punch.play()
 
 		elif Input.is_action_just_pressed(input_attack2):
 			if not is_on_floor():
 				start_attack("air")
 				camera_shake_value = 15
+				punch.pitch_scale
+				punch.play()
 			else:
 				start_attack("attack2")
 				camera_shake_value = 5
+				swoosh.pitch_scale
+				swoosh.play()
 
-	# Animations
+	
 	if not current_attack:
 		if velocity.x == 0:
 			sprite.play("default")
@@ -104,7 +114,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 
-# ---------------- ATTACK SYSTEM ----------------
+
 
 func start_attack(type: String):
 	current_attack = true
@@ -117,7 +127,7 @@ func start_attack(type: String):
 			attack_time = 0.35
 			
 		"attack2":
-			damage_zone.damage = 8
+			damage_zone.damage = 12
 			attack_time = 0.35
 			
 		"air":
@@ -129,7 +139,7 @@ func start_attack(type: String):
 	sprite.play(type + "_attack")
 	enable_damage_zone(type)
 
-	# ✅ Gameplay-controlled reset
+
 	await get_tree().create_timer(attack_time).timeout
 	current_attack = false
 
@@ -149,7 +159,7 @@ func _on_AnimatedSprite2D_animation_finished() -> void:
 	current_attack = false
 
 
-# ---------------- DAMAGE SYSTEM ----------------
+
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area is DamageZone:
@@ -161,7 +171,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		var attacker: CharacterBody2D = dz.owner_player
 		take_damage(dz.damage, attacker.global_position)
 
-		# 🔥 CAMERA SHAKE ON HIT
+
 		var cam := get_viewport().get_camera_2d()
 		if cam and cam.has_method("shake"):
 			cam.shake(camera_shake_value)
@@ -207,6 +217,6 @@ func apply_knockback(attacker_pos: Vector2) -> void:
 	var dir: float = sign(global_position.x - attacker_pos.x)
 
 	velocity.x = dir * knockback_power
-	velocity.y = -150   # small lift (optional)
+	velocity.y = -150   
 
 	
